@@ -1,6 +1,18 @@
+import { ThemeProvider } from "@emotion/react";
 import logo from "./logo.png";
-// import `css`and `ThemeProvider` from "@emotion/react" package
-// import styled components, theming and animation from "./styles.js" file
+import {
+  ActionsWrapper,
+  CardWrapper,
+  Container,
+  DescriptionWrapper,
+  ImageWrapper,
+  Logo,
+  Main,
+  PrimaryButton,
+  SecondaryButton,
+  TextWrapper,
+  TitleWrapper,
+} from "./styles";
 
 const hotels = [
   {
@@ -26,30 +38,47 @@ const hotels = [
   },
 ];
 
-// Apply styling to code within the `App` component's `return` statement using styled components, theming, animation and the `css` prop
-function App() {
+export const theme = {
+  colors: {
+    primary: "#03045e",
+    secondary: "#caf0f8",
+    tertiary: "#023e8a",
+    quaternary: "#fff",
+  },
+  fonts: {
+    primary: "helvetica",
+  },
+  fontSize: {
+    primary: "20px",
+    secondary: "14px",
+  },
+};
+
+const App = () => {
   return (
-    <main>
-      <img src={logo} alt="" />
-      <div>
-        {hotels.map((hotel) => {
-          return (
-            <div key={hotel.id}>
-              <img src={hotel.src} alt={hotel.alt} />
-              <div>
-                <h2>{hotel.title}</h2>
-                <h3>{hotel.description}</h3>
-              </div>
-              <div>
-                <button>Details</button>
-                <button>Book</button>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </main>
+    <ThemeProvider theme={theme}>
+      <Main>
+        <Logo src={logo} alt="logo" />
+        <Container>
+          {hotels.map(hotel => {
+            return (
+              <CardWrapper key={hotel.id}>
+                <ImageWrapper src={hotel.src} alt={hotel.alt} />
+                <TextWrapper>
+                  <TitleWrapper>{hotel.title}</TitleWrapper>
+                  <DescriptionWrapper>{hotel.description}</DescriptionWrapper>
+                </TextWrapper>
+                <ActionsWrapper>
+                  <PrimaryButton>Details</PrimaryButton>
+                  <SecondaryButton>Book</SecondaryButton>
+                </ActionsWrapper>
+              </CardWrapper>
+            );
+          })}
+        </Container>
+      </Main>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
